@@ -1,0 +1,37 @@
+@import './common.scss';
+
+.enemy {
+   position: absolute;
+   border-radius: 50%;
+   border: 1px solid red;
+}
+
+.hpbar {
+   position: absolute;
+   background-color: red;
+   border: 1px solid black;
+
+   .health {
+      height: 100%;
+      background-color: green;
+   }
+}
+
+.castbar {
+   position: absolute;
+   border: 1px solid black;
+
+   .cast-progress {
+      position: absolute;
+      height: 100%;
+      background-color: rgb(160, 136, 28);
+   }
+
+   .text {
+      position: absolute;
+      right: 10px;
+   }
+}
+
+// dummy
+.position-wrapper {}

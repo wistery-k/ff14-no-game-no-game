@@ -1,0 +1,21 @@
+@import './common.scss';
+
+// ちらつき対策
+.player-wrapper {
+   position: absolute;
+   padding: 5px 5px;
+   left: -10px;
+   top: -10px;
+   background-color: rgba(255, 255, 255, 0.01);
+}
+
+.player {
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   background-color: rgb(65, 65, 201);
+   position: absolute;
+}
+
+// dummy
+.position-wrapper {}
