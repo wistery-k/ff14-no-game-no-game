@@ -18,7 +18,7 @@ export default function Enemy({ key = 'enemy', initialX = 400, initialY = 400, h
    useGameTick((state, keyInput) => {
       const player = state.player.current;
       const d = Math.sqrt(Math.pow(player.x.current - xRef.current, 2) + Math.pow(player.y.current - yRef.current, 2));
-      if (d <= size + 5) {
+      if (d <= size + 5 && state.attacking.current) {
          setDamage(damageRef.current + 1);
       }
    }, []);
@@ -49,19 +49,19 @@ export default function Enemy({ key = 'enemy', initialX = 400, initialY = 400, h
    }, [damage, hp]);
 
    return (
-      <div styleName="position-wrapper" style={{left: x, top: y}}>
-         <div style={{width: size * 6.4, height: 4, left: -size * 3.2, top: -size * 1.4 - 20}} styleName="hpbar">
-            <div styleName="health" style={{width: `${(hp - damage) / hp * 100}%`}} />
+      <div styleName="position-wrapper" style={{ left: x, top: y }}>
+         <div style={{ width: size * 6.4, height: 4, left: -size * 3.2, top: -size * 1.4 - 20 }} styleName="hpbar">
+            <div styleName="health" style={{ width: `${(hp - damage) / hp * 100}%` }} />
          </div>
          {castLength !== null && (
-            <div style={{width: size * 2.4, height: 20, left: size * 0.8, top: -size * 1.2 - 20}} styleName="castbar">
-               <div styleName="cast-progress" style={{width: `${castProgress / castLength * 100}%`}} />
+            <div style={{ width: size * 2.4, height: 20, left: size * 0.8, top: -size * 1.2 - 20 }} styleName="castbar">
+               <div styleName="cast-progress" style={{ width: `${castProgress / castLength * 100}%` }} />
                <div styleName="text">{castName}</div>
             </div>
          )}
-         <div style={{width: size * 2, height: size * 2, left: -size, top: -size}} styleName="enemy" />
-         <div styleName="position-wrapper" style={{left: -x, top: -y}}>
-            {React.Children.map(children, child => React.cloneElement(child, {casterX: x, casterY: y}))}
+         <div style={{ width: size * 2, height: size * 2, left: -size, top: -size }} styleName="enemy" />
+         <div styleName="position-wrapper" style={{ left: -x, top: -y }}>
+            {React.Children.map(children, child => React.cloneElement(child, { casterX: x, casterY: y }))}
          </div>
       </div>
    );

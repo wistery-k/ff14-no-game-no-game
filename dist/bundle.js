@@ -308,6 +308,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+var calcBotPos = function calcBotPos(x) {
+  var a = x % 750;
+  var b = Math.floor(x / 750);
+
+  if (b % 2 == 0) {
+    return a;
+  }
+
+  return 750 - a;
+};
+
 function Game(_ref) {
   var running = _ref.running,
       level = _ref.level,
@@ -334,14 +346,61 @@ function _Game() {
       setTime = _useGameState2[1],
       timeRef = _useGameState2[2];
 
+  var _useGameState3 = useGameState('attacking', false),
+      _useGameState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useGameState3, 3),
+      attacking = _useGameState4[0],
+      setAttacking = _useGameState4[1],
+      attackingRef = _useGameState4[2];
+
+  var _useGameState5 = useGameState('strafeBotX', 0),
+      _useGameState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useGameState5, 3),
+      strafeBotX = _useGameState6[0],
+      setStrafeBotX = _useGameState6[1],
+      strafeBotXRef = _useGameState6[2];
+
+  var _useGameState7 = useGameState('strafeBotSpeed', 3),
+      _useGameState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useGameState7, 3),
+      strafeBotSpeed = _useGameState8[0],
+      setStrafeBotSpeed = _useGameState8[1],
+      strafeBotSpeedRef = _useGameState8[2];
+
   useGameTick(function (state, keyInput) {
+    console.log("AAA");
     setTime(timeRef.current + 1 / 60);
+    console.log(strafeBotXRef.current);
+    setStrafeBotX(strafeBotXRef.current + strafeBotSpeedRef.current);
   }, []);
+  var strafeBotWidth = 50;
+
+  var onMouseOver = function onMouseOver() {
+    setAttacking(true);
+  };
+
+  var onMouseOut = function onMouseOut() {
+    setAttacking(false);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_BattleField__WEBPACK_IMPORTED_MODULE_2__["default"], {
     time: time
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Timer__WEBPACK_IMPORTED_MODULE_3__["default"], {
     time: time
-  }));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    style: {
+      backgroundColor: "lightgray",
+      width: '800px',
+      height: '50px',
+      border: '1px solid black'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    onMouseOver: onMouseOver,
+    onMouseOut: onMouseOut,
+    style: {
+      width: "".concat(strafeBotWidth, "px"),
+      marginLeft: calcBotPos(strafeBotX),
+      backgroundColor: 'red',
+      height: '50px'
+    }
+  }, ' ')));
 }
 
 ;
@@ -705,7 +764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "../node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-/* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../Game */ "./Game.jsx");
+/* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../Game */ "./Game.jsx");
 /* harmony import */ var _utils_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/hook */ "./utils/hook.js");
 /* harmony import */ var _Enemy_module_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Enemy.module.scss */ "./levels/objects/Enemy.module.scss");
 
@@ -773,7 +832,7 @@ function Enemy(_ref) {
     var player = state.player.current;
     var d = Math.sqrt(Math.pow(player.x.current - xRef.current, 2) + Math.pow(player.y.current - yRef.current, 2));
 
-    if (d <= size + 5) {
+    if (d <= size + 5 && state.attacking.current) {
       setDamage(damageRef.current + 1);
     }
   }, []); // cast
@@ -920,7 +979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var _Aoe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Aoe */ "./levels/objects/Aoe.js");
 /* harmony import */ var _IronChariot_module_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./IronChariot.module.scss */ "./levels/objects/IronChariot.module.scss");
-/* harmony import */ var _utils_math__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../utils/math */ "./utils/math.js");
+/* harmony import */ var _utils_math__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../utils/math */ "./utils/math.js");
 
 
 
@@ -1005,7 +1064,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var _Aoe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Aoe */ "./levels/objects/Aoe.js");
 /* harmony import */ var _LunarDynamo_module_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./LunarDynamo.module.scss */ "./levels/objects/LunarDynamo.module.scss");
-/* harmony import */ var _utils_math__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../utils/math */ "./utils/math.js");
+/* harmony import */ var _utils_math__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../utils/math */ "./utils/math.js");
 
 
 
@@ -1088,7 +1147,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var _Player_module_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Player.module.scss */ "./levels/objects/Player.module.scss");
-/* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../Game */ "./Game.jsx");
+/* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../Game */ "./Game.jsx");
 
 
 
